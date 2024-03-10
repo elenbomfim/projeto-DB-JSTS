@@ -1,5 +1,3 @@
-import { list } from "@chakra-ui/react"
-
 export default class Pessoa  { // abstração
     constructor(nome = String, idade = Number, email = String) { // validação
         this._nome = nome
