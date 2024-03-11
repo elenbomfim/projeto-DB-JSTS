@@ -5,47 +5,101 @@ class BancoDeDados extends Pessoa {
     constructor (nome, idade, email) {
         super(nome, idade, email)
     } 
-
-    adicionarPessoanoDB() {
-        // herdar metodo inputNome, inputIdade, inputEmail
-        this.inputNome(),
-        this.inputIdade(),
-        this.inputEmail()
-
-      console.log(`${this._nome},  ${this._idade} anos, email ${this._email}adicionado(a) no banco de dados`)
+    
+    adicionarPessoaNoDB() {
+        // Criação de um novo objeto Pessoa
+        const pessoa = new Pessoa(this._nome, this._idade, this._email);
+        
+        // Simulação de adição ao banco de dados (substitua por código real)
+        console.log(`Adicionando pessoa no banco de dados: ${pessoa.toString()}`);
+        
+        return pessoa;
     }
-
+    
+    // Função para listar todas as pessoas no banco de dados
     listarPessoasNoDB() {
-        // herda método listarPessoasParaDB
-        console.log(`Listando pessoas do banco de dados: ${this.listarPessoasNoDB()}`)
+        // Simulação de consulta ao banco de dados (substitua por código real)
+        console.log('Listando pessoas no banco de dados:');
+        console.log(this.toString());
+        
+        return this;
     }
-
-    buscarPessoaNoDB() {
-        // herda método buscarPessoaParaDB
-        console.log(`Buscando pessoa no banco de dados: ${this.buscarPessoaNoDB()}`)
-
+    
+    // Função para buscar uma pessoa no banco de dados por nome
+    buscarPessoaNoDB(nome) {
+        // Validação do parâmetro
+        if (!isString(nome) || nome.length === 0) {
+            throw new Error('Nome inválido');
+        }
+        
+        // Simulação de consulta ao banco de dados (substitua por código real)
+        console.log(`Buscando pessoa no banco de dados: ${nome}`);
+        if (this._nome === nome) {
+            console.log(`Pessoa encontrada: ${this.toString()}`);
+            return this;
+        } else {
+            console.log('Pessoa não encontrada.');
+            return null;
+        }
     }
-
-    atualizarPessoaNoDB() {
-        // herda método atualizarPessoaParaDB
-        console.log(`Atualizando pessoa no banco de dados: ${this.atualizarPessoaNoDB()}`)
+    
+    // Função para atualizar uma pessoa no banco de dados
+    atualizarPessoaNoDB(nome, idade, email) {
+        // Validação dos parâmetros
+        if (!isString(nome) || nome.length === 0) {
+            throw new Error('Nome inválido');
+        }
+        if (!isNumber(idade) || idade < 0) {
+            throw new Error('Idade inválida');
+        }
+        if (!isEmail(email)) {
+            throw new Error('Email inválido');
+        }
+        
+        // Simulação de atualização no banco de dados (substitua por código real)
+        console.log(`Atualizando pessoa no banco de dados: ${nome}`);
+        this._nome = nome;
+        this._idade = idade;
+        this._email = email;
+        console.log(`Pessoa atualizada: ${this.toString()}`);
+        
+        return this;
     }
-
-    removerPessoaNoDB() {
-        // herda método removerPessoaParaDB
-        console.log(`Removendo pessoa do banco de dados: ${this.removerPessoaNoDB()}`)
+    
+    // Função para remover uma pessoa do banco de dados
+    removerPessoaNoDB(nome) {
+        // Validação do parâmetro
+        if (!isString(nome) || nome.length === 0) {
+            throw new Error('Nome inválido');
+        }
+        
+        // Simulação de remoção no banco de dados (substitua por código real)
+        console.log(`Removendo pessoa do banco de dados: ${nome}`);
+        if (this._nome === nome) {
+            console.log('Pessoa removida com sucesso.');
+            return true;
+        } else {
+            console.log('Pessoa não encontrada.');
+            return false;
+        }
     }
-
+    
+    // Função para converter a classe Pessoa em string
+    toString() {
+        return `Nome: ${this._nome}, Idade: ${this._idade}, Email: ${this._email}`;
+    }
 }
+
 
 // const novaPessoaNoDB = new BancoDeDados('Arthur', 29, 'a@a.com')
 // console.log(novaPessoaNoDBpessoaDB)
 // console.log(novaPessoaNoDBpessoaDB.exibirInfos()) // herda métodos
 
-const pessoaNoDB = new BancoDeDados
+
+// faltando testar os outros metodos
+const pessoaNoDB = new Pessoa("Arthur", 29, "a@a.com")
 pessoaNoDB.adicionarPessoanoDB()
 pessoaNoDB.listarPessoasNoDB()
 pessoaNoDB.buscarPessoaNoDB()
 pessoaNoDB.atualizarPessoaNoDB()
 pessoaNoDB.removerPessoaNoDB()
-
