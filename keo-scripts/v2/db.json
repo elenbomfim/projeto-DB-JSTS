@@ -1,0 +1,34 @@
+{
+  "listaDePessoas": [
+    {
+      "_nome": "De Arrascaeta",
+      "_idade": 20,
+      "_email": "dearrascaeta@flamengo.com",
+      "id": "7173"
+    },
+    {
+      "_nome": "Alex",
+      "_idade": 22,
+      "_email": "alex@palmeiras.com",
+      "id": "947d"
+    },
+    {
+      "_nome": "Halland",
+      "_idade": 25,
+      "_email": "halland@manchestercity.com",
+      "id": "829d"
+    },
+    {
+      "_nome": "Onana",
+      "_idade": 28,
+      "_email": "onana@athleticodemadrid.com",
+      "id": "7578"
+    },
+    {
+      "id": "2b99",
+      "__nome": "Negueba",
+      "__idade": 100,
+      "__email": "negueba@flamengo.com"
+    }
+  ]
+}
