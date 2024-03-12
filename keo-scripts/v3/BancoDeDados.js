@@ -8,6 +8,13 @@ class BancoDeDados extends Pessoa {
         super(_nome, _idade, _email);
     }
 
+    adicionarPessoaNoDB() {
+        const listaDePessoas = []
+        const pessoa = new Pessoa(this.__nome, this.__idade, this.__email)
+        const enviarPessoaParaLista = listaDePessoas.push(pessoa)
+        return enviarPessoaParaLista
+    }
+
     async listarPessoasNoDB() {
         try {
             const currentFileUrl = import.meta.url;
