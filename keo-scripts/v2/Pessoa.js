@@ -32,21 +32,19 @@ class PessoaService {
     }
 }
 
-// Código principal
-const pessoaService = new PessoaService("http://localhost:3000/listaDePessoas");
+const pessoaService = new PessoaService("http://localhost:3000/listaDePessoas")
 
-const _nome = "Negueba";
-const _idade = 100;
-const _email = "negueba@flamengo.com";
+const _nome = "Zico"
+const _idade = 30
+const _email = "zico@melhordomundo.com"
 
 try {
-    const response = await pessoaService.enviarPessoa(_nome, _idade, _email);
+    const response = await pessoaService.enviarPessoa(_nome, _idade, _email)
     if (!response.ok) {
-        throw new Error("Erro ao registrar. Tente novamente.");
+        throw new Error("Erro ao registrar. Tente novamente.")
     }
-    const data = await response.json();
-    console.log("Registro efetivado com sucesso", data);
+    const data = await response.json()
+    console.log("Registro efetivado com sucesso", data)
 } catch (error) {
-    console.error("Ops... " + error.message);
+    console.error("Ops... " + error.message)
 }
-
