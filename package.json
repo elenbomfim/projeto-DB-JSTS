@@ -1,15 +1,16 @@
 {
   "dependencies": {
+    "json-server": "^1.0.0-alpha.23",
     "prompt": "^1.3.0"
   },
-    "type": "module",
-    "main": "index.js",
-    "directories": {
-      "doc": "docs"
-    },
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC"
-  }
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
