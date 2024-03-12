@@ -15,14 +15,14 @@ export default class BancoDeDados extends Pessoa {
         this.listaDePessoas = [];
     }
 
-    adicionarPessoa(nome, idade, email) {
+    adicionarPessoa(nome, _idade, email) {
         const pessoaExistente = this.listaDePessoas.some(pessoa => pessoa.nome === nome);
         if (pessoaExistente) {
             console.error('Erro: Já existe uma pessoa com esse nome no banco de dados.');
             return;
         }
 
-        const pessoa = new Pessoa(nome, idade, email);
+        const pessoa = new Pessoa(nome, _idade, email);
         this.listaDePessoas.push(pessoa);
         console.log(`${nome} foi adicionado com sucesso.`);
     }
@@ -43,7 +43,7 @@ export default class BancoDeDados extends Pessoa {
         }
     }
 
-    atualizarCadastro(nome, idade, email) {
+    atualizarCadastro(nome, _idade, email) {
         const pessoaExistenteIndex = this.listaDePessoas.findIndex(pessoa => pessoa.nome === nome);
         if (pessoaExistenteIndex !== -1) {
             const pessoaAtualizada = new Pessoa(nome, idade, email);
