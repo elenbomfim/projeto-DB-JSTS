@@ -6,11 +6,19 @@ class BancoDeDados extends Pessoa {
         super(_nome, _idade, _email)
     }
 
-    // adicionarPessoaNoDB() {}
+    adicionarPessoaNoDB() {
+        const listaDePessoas = []
+        const pessoa = new Pessoa(this.__nome, this.__idade, this.__email)
+        const enviarPessoaParaLista = listaDePessoas.push(pessoa)
+        return enviarPessoaParaLista
+    }
 
-    // listarPessoasNoDB() {
+    listarPessoasNoDB() {      
+        const db = require('./db.json');     
+        const listaDePessoas = db.listaDePessoas        
+        console.log(listaDePessoas)
 
-    // }
+    }
 
     // buscarPessoaNoDB() {
 
@@ -29,3 +37,10 @@ class BancoDeDados extends Pessoa {
 // const novaPessoaNoDB = new BancoDeDados('Arthur', 29, 'a@a.com')
 // console.log(novaPessoaNoDBpessoaDB)
 // console.log(novaPessoaNoDBpessoaDB.exibirInfos()) // herda métodos
+
+
+
+
+
+
+
