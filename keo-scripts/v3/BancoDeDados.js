@@ -8,11 +8,16 @@ class BancoDeDados extends Pessoa {
         super(_nome, _idade, _email);
     }
 
-    adicionarPessoaNoDB() {
-        const listaDePessoas = [];
-        const pessoa = new Pessoa(this.__nome, this.__idade, this.__email);
-        const enviarPessoaParaLista = listaDePessoas.push(pessoa);
-        return enviarPessoaParaLista;
+    async adicionarPessoaNoDB() {
+        try {
+            const pessoa = new Pessoa(this.__nome, this.__idade, this.__email);
+            const listaDePessoas = await this._carregarDB();
+            listaDePessoas.push(pessoa);
+            await this._salvarDB(listaDePessoas);
+            console.log("Pessoa adicionada com sucesso.");
+        } catch (error) {
+            console.error('Erro ao adicionar pessoa:', error);
+        }
     }
 
     async listarPessoasNoDB() {
@@ -89,8 +94,9 @@ class BancoDeDados extends Pessoa {
     }
 }
 
-// const bancoDeDados = new BancoDeDados();
-// bancoDeDados.listarPessoasNoDB();
-// bancoDeDados.buscarPessoaNoDB('Arthur');
-// bancoDeDados.atualizarPessoaNoDB('Zico', { _idade: 30 });
-// bancoDeDados.removerPessoaNoDB('Alex');
+const bancoDeDados = new BancoDeDados();
+bancoDeDados.adicionarPessoaNoDB('Ronaldo', 25, 'ronaldo@internacionalle.com');
+bancoDeDados.listarPessoasNoDB();
+bancoDeDados.buscarPessoaNoDB('Alex');
+bancoDeDados.atualizarPessoaNoDB('Zico', { _idade: 30 });
+bancoDeDados.removerPessoaNoDB('Zidane');

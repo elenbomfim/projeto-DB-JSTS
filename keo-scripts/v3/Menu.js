@@ -3,13 +3,15 @@ import BancoDeDados from './BancoDeDados.js';
 
 const promptSync = prompt();
 
-class Menu {
+class Menu extends BancoDeDados{
     constructor() {
         this.bancoDeDados = new BancoDeDados();
     }
 
     exibirMenu() {
-        console.log("======= Menu =======");
+        console.log("\n 𝔹𝔸ℕℂ𝕆 𝔻𝔼 𝔻𝔸𝔻𝕆𝕊 \n")
+        console.log("Boas vindas ao sistema de cadastro de pessoas!\n");
+        console.log("\n======= Menu =======\n");
         console.log("1. Adicionar Pessoa");
         console.log("2. Listar Pessoas");
         console.log("3. Buscar Pessoa");
@@ -76,5 +78,3 @@ class Menu {
         await this.bancoDeDados.removerPessoaNoDB(_nome);
     }
 }
-
-export default Menu;
