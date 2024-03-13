@@ -8,9 +8,9 @@ class BancoDeDados extends Pessoa {
         super(_nome, _idade, _email);
     }
 
-    async adicionarPessoaNoDB() {
+    async adicionarPessoaNoDB(_nome, _idade, _email) {
         try {
-            const pessoa = new Pessoa(this.__nome, this.__idade, this.__email);
+            const pessoa = new Pessoa(_nome, _idade, _email);
             const listaDePessoas = await this._carregarDB();
             listaDePessoas.push(pessoa);
             await this._salvarDB(listaDePessoas);
@@ -37,7 +37,7 @@ class BancoDeDados extends Pessoa {
     async buscarPessoaNoDB(nome) {
         try {
             const listaDePessoas = await this._carregarDB();
-            const pessoaEncontrada = listaDePessoas.find(pessoa => pessoa.nome === nome);
+            const pessoaEncontrada = listaDePessoas.find(pessoa => pessoa.__nome === nome);
             if (pessoaEncontrada) {
                 console.log("Pessoa encontrada:", pessoaEncontrada);
             } else {
@@ -51,7 +51,7 @@ class BancoDeDados extends Pessoa {
     async atualizarPessoaNoDB(nome, novosDados) {
         try {
             const listaDePessoas = await this._carregarDB();
-            const index = listaDePessoas.findIndex(pessoa => pessoa.nome === nome);
+            const index = listaDePessoas.findIndex(pessoa => pessoa.__nome === nome);
             if (index !== -1) {
                 listaDePessoas[index] = { ...listaDePessoas[index], ...novosDados };
                 await this._salvarDB(listaDePessoas);
@@ -67,7 +67,7 @@ class BancoDeDados extends Pessoa {
     async removerPessoaNoDB(nome) {
         try {
             let listaDePessoas = await this._carregarDB();
-            listaDePessoas = listaDePessoas.filter(pessoa => pessoa.nome !== nome);
+            listaDePessoas = listaDePessoas.filter(pessoa => pessoa.__nome !== nome);
             await this._salvarDB(listaDePessoas);
             console.log("Pessoa removida com sucesso.");
         } catch (error) {
@@ -95,10 +95,3 @@ class BancoDeDados extends Pessoa {
 }
 
 export default BancoDeDados;
-
-// const bancoDeDados = new BancoDeDados();
-// bancoDeDados.adicionarPessoaNoDB('Ronaldo', 25, 'ronaldo@internacionalle.com');
-// bancoDeDados.listarPessoasNoDB();
-// bancoDeDados.buscarPessoaNoDB('Alex');
-// bancoDeDados.atualizarPessoaNoDB('Zico', { _idade: 30 });
-// bancoDeDados.removerPessoaNoDB('Zidane');

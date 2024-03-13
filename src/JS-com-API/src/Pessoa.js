@@ -1,5 +1,10 @@
-export default class Pessoa { // abstração
-    constructor(_nome = String, _idade = Number, _email = String) { // validação
+import { v4 as uuidv4 } from 'uuid';
+
+export default class Pessoa {
+
+    id = uuidv4()
+
+    constructor(_nome = String, _idade = Number, _email = String) { 
         this.__nome = _nome
         this.__idade = _idade
         this.__email = _email
@@ -13,7 +18,6 @@ export default class Pessoa { // abstração
     }
 }
 
-// encapsula logica de envio de dados
 class PessoaService {
     constructor(url) {
         this.url = "http://localhost:3000/listaDePessoas";
@@ -30,21 +34,4 @@ class PessoaService {
             body,
         });
     }
-}
-
-const pessoaService = new PessoaService("http://localhost:3000/listaDePessoas")
-
-const _nome = undefined
-const _idade = undefined
-const _email = undefined
-
-try {
-    const response = await pessoaService.enviarPessoa(_nome, _idade, _email)
-    if (!response.ok) {
-        throw new Error("Erro ao registrar. Tente novamente.")
-    }
-    const data = await response.json()
-    console.log("Registro efetivado com sucesso", data)
-} catch (error) {
-    console.error("Ops... " + error.message)
 }
