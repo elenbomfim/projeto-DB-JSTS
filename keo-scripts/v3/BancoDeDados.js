@@ -1,7 +1,7 @@
 import Pessoa from './Pessoa.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import fs from 'fs'; 
+import fs from 'fs';
 
 class BancoDeDados extends Pessoa {
     constructor(_nome, _idade, _email) {
@@ -9,10 +9,10 @@ class BancoDeDados extends Pessoa {
     }
 
     adicionarPessoaNoDB() {
-        const listaDePessoas = []
-        const pessoa = new Pessoa(this.__nome, this.__idade, this.__email)
-        const enviarPessoaParaLista = listaDePessoas.push(pessoa)
-        return enviarPessoaParaLista
+        const listaDePessoas = [];
+        const pessoa = new Pessoa(this.__nome, this.__idade, this.__email);
+        const enviarPessoaParaLista = listaDePessoas.push(pessoa);
+        return enviarPessoaParaLista;
     }
 
     async listarPessoasNoDB() {
@@ -20,40 +20,77 @@ class BancoDeDados extends Pessoa {
             const currentFileUrl = import.meta.url;
             const currentFilePath = fileURLToPath(currentFileUrl);
             const filePath = path.resolve(path.dirname(currentFilePath), 'db.json');
-            const data = fs.readFileSync(filePath, 'utf-8'); // le arquivo usando fs.readFileSync
-            const json = JSON.parse(data); // parse do conteudo para JSON
+            const data = fs.readFileSync(filePath, 'utf-8');
+            const json = JSON.parse(data);
             const listaDePessoas = json.listaDePessoas;
             console.log("Lista de pessoas do DB:", listaDePessoas);
         } catch (error) {
             console.error('Erro ao carregar o JSON:', error);
         }
     }
+
+    async buscarPessoaNoDB(nome) {
+        try {
+            const listaDePessoas = await this._carregarDB();
+            const pessoaEncontrada = listaDePessoas.find(pessoa => pessoa.nome === nome);
+            if (pessoaEncontrada) {
+                console.log("Pessoa encontrada:", pessoaEncontrada);
+            } else {
+                console.log("Pessoa não encontrada.");
+            }
+        } catch (error) {
+            console.error('Erro ao buscar pessoa:', error);
+        }
+    }
+
+    async atualizarPessoaNoDB(nome, novosDados) {
+        try {
+            const listaDePessoas = await this._carregarDB();
+            const index = listaDePessoas.findIndex(pessoa => pessoa.nome === nome);
+            if (index !== -1) {
+                listaDePessoas[index] = { ...listaDePessoas[index], ...novosDados };
+                await this._salvarDB(listaDePessoas);
+                console.log("Pessoa atualizada com sucesso.");
+            } else {
+                console.log("Pessoa não encontrada para atualização.");
+            }
+        } catch (error) {
+            console.error('Erro ao atualizar pessoa:', error);
+        }
+    }
+
+    async removerPessoaNoDB(nome) {
+        try {
+            let listaDePessoas = await this._carregarDB();
+            listaDePessoas = listaDePessoas.filter(pessoa => pessoa.nome !== nome);
+            await this._salvarDB(listaDePessoas);
+            console.log("Pessoa removida com sucesso.");
+        } catch (error) {
+            console.error('Erro ao remover pessoa:', error);
+        }
+    }
+
+    async _carregarDB() {
+        const currentFileUrl = import.meta.url;
+        const currentFilePath = fileURLToPath(currentFileUrl);
+        const filePath = path.resolve(path.dirname(currentFilePath), 'db.json');
+        const data = fs.readFileSync(filePath, 'utf-8');
+        const json = JSON.parse(data);
+        return json.listaDePessoas;
+    }
+
+    async _salvarDB(listaDePessoas) {
+        const currentFileUrl = import.meta.url;
+        const currentFilePath = fileURLToPath(currentFileUrl);
+        const filePath = path.resolve(path.dirname(currentFilePath), 'db.json');
+        const json = { listaDePessoas };
+        const data = JSON.stringify(json, null, 2);
+        fs.writeFileSync(filePath, data, 'utf-8');
+    }
 }
 
-// buscarPessoaNoDB() {
-
-// }
-
-// atualizarPessoaNoDB() {
-
-// }
-
-// removerPessoaNoDB() {
-
-// }
-
-// const novaPessoaNoDB = new BancoDeDados('Arthur', 29, 'a@a.com')
-// console.log(novaPessoaNoDBpessoaDB)
-// console.log(novaPessoaNoDBpessoaDB.exibirInfos()) // herda métodos
-
-const bancoDeDados = new BancoDeDados();
-bancoDeDados.listarPessoasNoDB();
-
-
-
-
-
-
-
-
-
+// const bancoDeDados = new BancoDeDados();
+// bancoDeDados.listarPessoasNoDB();
+// bancoDeDados.buscarPessoaNoDB('Arthur');
+// bancoDeDados.atualizarPessoaNoDB('Zico', { _idade: 30 });
+// bancoDeDados.removerPessoaNoDB('Alex');
