@@ -1,4 +1,7 @@
 import BancoDeDados from './BancoDeDados.js';
+import prompt from 'prompt-sync';
+const promptSync = prompt();
+
 
 class Menu extends BancoDeDados {
     constructor() {
@@ -18,10 +21,10 @@ class Menu extends BancoDeDados {
     }
 
     async iniciar() {
-        let opcao;
+       let opcao
         do {
             this.exibirMenu();
-            opcao = promptSync("Escolha uma opção: ");
+           opcao = promptSync("Escolha uma opção: ");
             switch (opcao) {
                 case '1':
                     await this.adicionarPessoa();
@@ -48,9 +51,9 @@ class Menu extends BancoDeDados {
     }
 
     async adicionarPessoa() {
-        const _nome = promptSync("Digite o nome da pessoa: ");
-        const _idade = promptSync("Digite a idade da pessoa: ");
-        const _email = promptSync("Digite o email da pessoa: ");
+        const _nome = promptSync("Digite o nome da pessoa: ");        
+        const _idade = promptSync("Digite a idade da pessoa: ");        
+        const _email = promptSync("Digite o email da pessoa: ");      
         await this.adicionarPessoaNoDB(_nome, _idade, _email);
     }
 
@@ -76,5 +79,8 @@ class Menu extends BancoDeDados {
     }
 }
 
+
 export default Menu;
 
+const menu = new Menu();
+menu.iniciar()
