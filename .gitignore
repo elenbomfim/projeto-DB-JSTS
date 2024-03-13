@@ -1,3 +1,2 @@
-src/JS-com-API/src/node_modules/
-src/elen-scripts/
-src/arthur-scripts/
+node_modules/
+**/scripts
