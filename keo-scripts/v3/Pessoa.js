@@ -34,9 +34,9 @@ class PessoaService {
 
 const pessoaService = new PessoaService("http://localhost:3000/listaDePessoas")
 
-const _nome = "Bebeto"
-const _idade = 40
-const _email = "bebeto@brasil.com"
+const _nome = "Zidane"
+const _idade = 60
+const _email = "zidane@franca.com"
 
 try {
     const response = await pessoaService.enviarPessoa(_nome, _idade, _email)
